@@ -1,0 +1,1 @@
+-- O banco de dados já está criado. Este arquivo é apenas para referência.

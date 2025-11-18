@@ -1,0 +1,266 @@
+{
+  "info": {
+    "name": "API Futurize - FIAP",
+    "description": "Collection para testar a API do projeto Futurize (Quarkus/JPA)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "usuarioId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "cursoId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "habilidadeId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "POST Criar Usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Carlos Souza\",\n  \"email\": \"carlos.souza@futurize.com\",\n  \"ativo\": \"S\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "usuarios"]
+            }
+          }
+        },
+        {
+          "name": "GET Listar Todos Usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "usuarios"]
+            }
+          }
+        },
+        {
+          "name": "GET Buscar Usuario por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "usuarios", "{{usuarioId}}"]
+            }
+          }
+        },
+        {
+          "name": "PUT Atualizar Usuario",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Carlos Souza Atualizado\",\n  \"email\": \"carlos.souza@futurize.com\",\n  \"ativo\": \"S\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "usuarios", "{{usuarioId}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE Deletar Usuario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "usuarios", "999"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cursos",
+      "item": [
+        {
+          "name": "POST Criar Curso",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Python para Data Science\",\n  \"descricao\": \"Curso introdutório de Python para análise de dados.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cursos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cursos"]
+            }
+          }
+        },
+        {
+          "name": "GET Listar Todos Cursos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/cursos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cursos"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Habilidades",
+      "item": [
+        {
+          "name": "POST Criar Habilidade",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Machine Learning\",\n  \"descricao\": \"Habilidade em construir modelos de ML.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/habilidades",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "habilidades"]
+            }
+          }
+        },
+        {
+          "name": "GET Listar Todas Habilidades",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/habilidades",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "habilidades"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "UsuarioHabilidades",
+      "item": [
+        {
+          "name": "POST Associar Habilidade",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuario\": {\"id\": {{usuarioId}}},\n  \"habilidade\": {\"id\": {{habilidadeId}}},\n  \"nivel\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/usuario-habilidades",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "usuario-habilidades"]
+            }
+          }
+        },
+        {
+          "name": "GET Habilidades por Usuario",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuario-habilidades/usuario/{{usuarioId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "usuario-habilidades", "usuario", "{{usuarioId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recomendacoes",
+      "item": [
+        {
+          "name": "POST Criar Recomendacao",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuario\": {\"id\": {{usuarioId}}},\n  \"curso\": {\"id\": {{cursoId}}},\n  \"prioridade\": 7\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/recomendacoes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "recomendacoes"]
+            }
+          }
+        },
+        {
+          "name": "GET Recomendacoes por Usuario",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/recomendacoes/usuario/{{usuarioId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "recomendacoes", "usuario", "{{usuarioId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
