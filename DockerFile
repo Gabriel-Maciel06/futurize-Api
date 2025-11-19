@@ -1,18 +1,13 @@
-
-FROM maven:3.8.6-openjdk-17 AS build
+# Build da aplicação
+FROM maven:3.8.6-eclipse-temurin-17 AS build
 WORKDIR /app
-
 COPY pom.xml .
 COPY src ./src
+RUN mvn -B -DskipTests package
 
-RUN mvn clean package -DskipTests
-
-FROM openjdk:17-jre-slim
+# Runtime (imagem mais leve)
+FROM eclipse-temurin:17-jre
 WORKDIR /app
-
-
-COPY --from=build /app/target/quarkus-app/quarkus-run.jar ./app.jar
-
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
