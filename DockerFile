@@ -1,13 +1,21 @@
-# Build da aplicação
+# Stage de build com Maven (gera target/quarkus-app)
 FROM maven:3.8.6-eclipse-temurin-17 AS build
 WORKDIR /app
+
 COPY pom.xml .
 COPY src ./src
+
+# Gera o pacote Quarkus (pular testes para acelerar)
 RUN mvn -B -DskipTests package
 
-# Runtime (imagem mais leve)
+# Stage final (runtime leve)
 FROM eclipse-temurin:17-jre
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+
+# Copia toda a pasta quarkus-app (não apenas o jar)
+COPY --from=build /app/target/quarkus-app /app/quarkus-app
+
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+
+# Executa o runner dentro da pasta quarkus-app
+ENTRYPOINT ["java","-jar","/app/quarkus-app/quarkus-run.jar"]
