@@ -46,7 +46,7 @@ public class UsuarioHabilidadeService {
         
         existing.setUsuario(usuarioService.findById(usuarioHabilidade.getUsuario().getId()));
         existing.setHabilidade(habilidadeService.findById(usuarioHabilidade.getHabilidade().getId()));
-        existing.setNivel(usuarioHabilidade.getNivel());
+        existing.setProficiencia(usuarioHabilidade.getProficiencia());
         
         return repository.update(existing);
     }

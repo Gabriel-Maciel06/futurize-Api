@@ -32,7 +32,9 @@ public class CursoService {
         Curso existing = findById(id);
         
         existing.setNome(curso.getNome());
-        existing.setDescricao(curso.getDescricao());
+        existing.setCategoria(curso.getCategoria());
+        existing.setCargaHoraria(curso.getCargaHoraria());
+        existing.setNivel(curso.getNivel());
         
         return repository.update(existing);
     }

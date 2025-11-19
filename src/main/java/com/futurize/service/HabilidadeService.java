@@ -32,7 +32,8 @@ public class HabilidadeService {
         Habilidade existing = findById(id);
         
         existing.setNome(habilidade.getNome());
-        existing.setDescricao(habilidade.getDescricao());
+        existing.setCategoria(habilidade.getCategoria());
+        existing.setNivel(habilidade.getNivel());
         
         return repository.update(existing);
     }

@@ -8,19 +8,24 @@ import jakarta.validation.constraints.Size;
 @Table(name = "t_fz_habilidade")
 public class Habilidade {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "habilidade_seq")
-    @SequenceGenerator(name = "habilidade_seq", sequenceName = "sq_fz_habilidade", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_habilidade")
     private Long id;
 
     @NotBlank(message = "O nome da habilidade é obrigatório")
-    @Size(max = 100, message = "O nome deve ter no máximo 100 caracteres")
-    @Column(name = "nm_habilidade", nullable = false, length = 100)
+    @Size(max = 80, message = "O nome deve ter no máximo 80 caracteres")
+    @Column(name = "nm_habilidade", nullable = false, length = 80)
     private String nome;
 
-    @Size(max = 255, message = "A descrição deve ter no máximo 255 caracteres")
-    @Column(name = "ds_habilidade", length = 255)
-    private String descricao;
+    @NotBlank(message = "A categoria é obrigatória")
+    @Size(max = 60, message = "A categoria deve ter no máximo 60 caracteres")
+    @Column(name = "ds_categoria", nullable = false, length = 60)
+    private String categoria;
+
+    @NotBlank(message = "O nível é obrigatório")
+    @Size(max = 20, message = "O nível deve ter no máximo 20 caracteres")
+    @Column(name = "ds_nivel", nullable = false, length = 20)
+    private String nivel;
 
     public Long getId() {
         return id;
@@ -38,11 +43,19 @@ public class Habilidade {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
     }
 }

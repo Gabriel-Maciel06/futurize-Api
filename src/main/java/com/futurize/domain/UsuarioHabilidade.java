@@ -2,15 +2,15 @@ package com.futurize.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "t_fz_usuario_habilidade")
 public class UsuarioHabilidade {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_habilidade_seq")
-    @SequenceGenerator(name = "usuario_habilidade_seq", sequenceName = "sq_fz_usuario_habilidade", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario_habilidade")
     private Long id;
 
@@ -24,11 +24,22 @@ public class UsuarioHabilidade {
     @JoinColumn(name = "id_habilidade", nullable = false)
     private Habilidade habilidade;
 
-    @NotNull(message = "O nível de proficiência é obrigatório")
-    @PositiveOrZero(message = "O nível deve ser positivo ou zero")
-    @Max(value = 5, message = "O nível máximo é 5")
-    @Column(name = "nr_nivel", nullable = false)
-    private Integer nivel;
+    @NotNull(message = "A proficiência é obrigatória")
+    @Min(value = 0, message = "A proficiência mínima é 0")
+    @Max(value = 100, message = "A proficiência máxima é 100")
+    @Column(name = "nu_proficiencia", nullable = false)
+    private Integer proficiencia;
+
+    @Column(name = "dt_atualizacao", nullable = false)
+    private LocalDate dataAtualizacao;
+
+    @PrePersist
+    @PreUpdate
+    public void prePersist() {
+        if (dataAtualizacao == null) {
+            dataAtualizacao = LocalDate.now();
+        }
+    }
 
     public Long getId() {
         return id;
@@ -54,11 +65,19 @@ public class UsuarioHabilidade {
         this.habilidade = habilidade;
     }
 
-    public Integer getNivel() {
-        return nivel;
+    public Integer getProficiencia() {
+        return proficiencia;
     }
 
-    public void setNivel(Integer nivel) {
-        this.nivel = nivel;
+    public void setProficiencia(Integer proficiencia) {
+        this.proficiencia = proficiencia;
+    }
+
+    public LocalDate getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDate dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 }

@@ -10,8 +10,7 @@ import java.time.LocalDate;
 @Table(name = "t_fz_usuario")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
-    @SequenceGenerator(name = "usuario_seq", sequenceName = "sq_fz_usuario", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long id;
 
@@ -22,8 +21,8 @@ public class Usuario {
 
     @NotBlank(message = "O e-mail é obrigatório")
     @Email(message = "E-mail inválido")
-    @Size(max = 100, message = "O e-mail deve ter no máximo 100 caracteres")
-    @Column(name = "ds_email", nullable = false, unique = true, length = 100)
+    @Size(max = 150, message = "O e-mail deve ter no máximo 150 caracteres")
+    @Column(name = "ds_email", nullable = false, unique = true, length = 150)
     private String email;
 
     @Column(name = "st_ativo", length = 1)
