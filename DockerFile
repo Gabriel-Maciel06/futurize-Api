@@ -1,19 +1,29 @@
 # Dockerfile para o projeto Quarkus (futurize-api)
 
-FROM maven:3.8.6-openjdk-11 AS build
+# ==============================================================================
+# STAGE 1: BUILD - Compila o projeto e gera o JAR executável
+# ==============================================================================
+FROM maven:3.8.6-openjdk-17 AS build  <-- ALTERADO PARA JAVA 17
 WORKDIR /app
 
+# Copia o pom.xml e o código-fonte
 COPY pom.xml .
 COPY src ./src
 
+# Compila o projeto e gera o JAR executável (quarkus-run.jar)
 RUN mvn clean package -DskipTests
 
-FROM openjdk:11-jre-slim
+# ==============================================================================
+# STAGE 2: RUNTIME - Cria a imagem final, leve e segura
+# ==============================================================================
+FROM openjdk:17-jre-slim  <-- ALTERADO PARA JAVA 17
 WORKDIR /app
 
+# Copia o JAR executável gerado na etapa de build
 COPY --from=build /app/target/quarkus-app/quarkus-run.jar ./app.jar
 
+# Expõe a porta padrão do Quarkus
 EXPOSE 8080
 
-
+# Comando para iniciar a aplicação
 CMD ["java", "-jar", "app.jar"]
